@@ -1,0 +1,111 @@
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap");
+
+/* Global Rules */
+:root {
+    --main-bg: #ffffff;
+    --second-bg: #fafafb;
+    --txt-color: #455560;
+    --txt-white: #fff;
+    --main-color: #2759cd;
+    --border-color: #e6e7ee;
+    --black-color: #000000;
+
+    /* Light Color */
+    --main-bg-light: #ffffff;
+    --second-bg-light: #fafafb;
+    --txt-color-light: #455560;
+    --txt-white-light: #fff;
+    --border-color-light: #e6e7ee;
+    --black-color-light: #000;
+    --box-shadow-light: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    /* Dark Color */
+    --main-bg-dark: #2d2d2d;
+    --second-bg-dark: #202020;
+    --txt-color-dark: #bbbbbb;
+    --txt-white-dark: #17181a;
+    --border-color-dark: #323233;
+    --black-color-dark: #fff;
+    --box-shadow-dark: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+
+    --shadow-black-100: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-black-300: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    --topnav-height: 60px;
+    --transition-cubic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body {
+    font-family: "Open Sans", sans-serif !important;
+    font-size: 16px !important;
+    overflow-x: hidden !important;
+    font-weight: 400 !important;
+    background-color: var(--white-bg) !important;
+    text-transform: capitalize !important;
+    line-height: 1.5 !important;
+}
+
+.light-background {
+    background-color: var(--main-bg-light);
+    color: #000;
+}
+
+.dark-background {
+    background-color: var(--main-bg-dark);
+    color: #fff;
+}
+
+.layout {
+    color: var(--txt-color);
+}
+
+/* icons mask */
+.css-1ub9kic {
+    padding-inline-start: 2.5rem !important;
+}
+
+.css-cjmujr {
+    padding-inline-start: 2.5rem !important;
+}
+
+/* Dashboard */
+.linkItem {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.linkItem.active {
+    background-color: var(--main-color) !important;
+}
+
+.linkItem.active span {
+    color: var(--txt-white) !important;
+    font-weight: 600;
+}
+
+.linkItem.active .sideLinks:hover {
+    background-color: var(--main-color) !important;
+}
+
+.linkItem .sideLinks svg path {
+    stroke: #626262 !important;
+    fill: transparent !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    stroke-miterlimit: 10 !important;
+}
+
+.linkItem.active .sideLinks svg path {
+    fill: white !important;
+    stroke: none !important;
+}
+
+.icon_hover:hover path {
+    stroke: var(--main-color);
+}
