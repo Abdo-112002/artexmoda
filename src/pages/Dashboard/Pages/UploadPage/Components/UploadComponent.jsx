@@ -1,6 +1,5 @@
-import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { icons } from "./../../../../../assets";
 
 import { DefaultInput } from "../../../../../components";
 
@@ -9,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 import ImageSelected from "./ImageSelected";
 import FileUpload from "./FileUpload";
+import DatePickerSelect from "./DatePickerSelect";
 
 const UploadComponent = () => {
 	// Custon Navigate
 	const navigate = useNavigate();
 
 	// Colors
-	const borderColor = `${"var(--border-color)"}`;
 	const blackColor = `${"var(--black-color)"}`;
 	const mainColor = `${"var(--main-color)"}`;
 	const whiteColoe = `${"var(--txt-white)"}`;
@@ -29,11 +28,15 @@ const UploadComponent = () => {
 	const [size, setSized] = useState(0);
 	const [data, setData] = useState({
 		name: "",
-		date: "",
-		startDate: "",
-		endDate: "",
 	});
+	const [startDate, setStartDate] = useState();
+	const [endDate, setEndDate] = useState();
+	const [estimatedDelivery, setEstimatedDelivery] = useState();
+	const [startFouces, setStartFouces] = useState(false);
+	const [endFouces, setEndFouces] = useState(false);
+	const [estFouces, setEstFouces] = useState(false);
 
+	// Functions
 	const onSelectImage = (event) => {
 		const selectedFiles = event.target.files[0];
 		// get accept and validate he is include selectFile or no
@@ -114,23 +117,23 @@ const UploadComponent = () => {
 						<path
 							d="M9 17V11M9 11L7 13M9 11L11 13"
 							stroke="#303030"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="1.5"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						/>
 						<path
 							d="M22 10V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2H14"
 							stroke="black"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="1.5"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						/>
 						<path
 							d="M22 10H18C15 10 14 9 14 6V2L22 10Z"
 							stroke="black"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="1.5"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						/>
 					</svg>
 
@@ -171,17 +174,17 @@ const UploadComponent = () => {
 							>
 								<path
 									d="M5.33325 8.13325H9.99992M5.33325 10.7999H8.25325M6.66659 3.99992H9.33325C10.6666 3.99992 10.6666 3.33325 10.6666 2.66659C10.6666 1.33325 9.99992 1.33325 9.33325 1.33325H6.66659C5.99992 1.33325 5.33325 1.33325 5.33325 2.66659C5.33325 3.99992 5.99992 3.99992 6.66659 3.99992Z"
-									stroke="#626262"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									stroke={error ? "#FF0000" : "#626262"}
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M10.6667 2.67993C12.8867 2.79993 14 3.61993 14 6.6666V10.6666C14 13.3333 13.3333 14.6666 10 14.6666H6C2.66667 14.6666 2 13.3333 2 10.6666V6.6666C2 3.6266 3.11333 2.79993 5.33333 2.67993"
-									stroke="#626262"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									stroke={error ? "#FF0000" : "#626262"}
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 						}
@@ -189,30 +192,6 @@ const UploadComponent = () => {
 						value={data.name}
 						onChange={handleChange}
 						isPassword={false}
-						errorIcon={
-							<svg
-								width="16"
-								height="16"
-								viewBox="0 0 16 16"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M5.33325 8.13325H9.99992M5.33325 10.7999H8.25325M6.66659 3.99992H9.33325C10.6666 3.99992 10.6666 3.33325 10.6666 2.66659C10.6666 1.33325 9.99992 1.33325 9.33325 1.33325H6.66659C5.99992 1.33325 5.33325 1.33325 5.33325 2.66659C5.33325 3.99992 5.99992 3.99992 6.66659 3.99992Z"
-									stroke={error ? "#FF0000" : "#626262"}
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-								<path
-									d="M10.6667 2.67993C12.8867 2.79993 14 3.61993 14 6.6666V10.6666C14 13.3333 13.3333 14.6666 10 14.6666H6C2.66667 14.6666 2 13.3333 2 10.6666V6.6666C2 3.6266 3.11333 2.79993 5.33333 2.67993"
-									stroke={error ? "#FF0000" : "#626262"}
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-						}
 					/>
 
 					{/* File Selected Component */}
@@ -237,7 +216,7 @@ const UploadComponent = () => {
 							alignItems={"flex-start"}
 							justifyContent="space-between"
 							gap="8px"
-							w="142px"
+							w="100%"
 							h="100%"
 						>
 							<Text
@@ -248,46 +227,66 @@ const UploadComponent = () => {
 							>
 								Preorder period
 							</Text>
-							<Input
-								type="date"
-								border={`1px solid ${borderColor}`}
-								rounded="4px"
-								p="8px 16px"
-								w="100%"
-								h="36px"
-								fontSize={"14px"}
-								fontWeight="400"
-								lineHeight={"20px"}
-								name="endDate"
-								value={data.endDate}
-								onChange={handleChange}
+							<DatePickerSelect
+								holder={"From"}
+								date={startDate}
+								setDate={setStartDate}
+								fouces={startFouces}
+								setFouces={setStartFouces}
 							/>
 						</Flex>
-						<Input
-							type="date"
-							border={`1px solid ${borderColor}`}
-							rounded="4px"
-							p="8px 16px"
-							w="100%"
-							h="36px"
-							fontSize={"14px"}
-							fontWeight="400"
-							lineHeight={"20px"}
-							name="startDate"
-							value={data.startDate}
-							onChange={handleChange}
+						<DatePickerSelect
+							holder={"To"}
+							date={endDate}
+							setDate={setEndDate}
+							fouces={endFouces}
+							setFouces={setEndFouces}
 						/>
 					</Flex>
 
-					<DefaultInput
-						placeholder="Estimated delivery"
-						type="date"
-						error={false}
-						leftIcons={<Image src={icons.Delivry} />}
-						name={"date"}
-						value={data.date}
-						onChange={handleChange}
-						isPassword={false}
+					<DatePickerSelect
+						holder={"Estimated delivery"}
+						date={estimatedDelivery}
+						setDate={setEstimatedDelivery}
+						fouces={estFouces}
+						setFouces={setEstFouces}
+						pl="40px !important"
+						leftIcon={
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+								className="w-[16px] h-[16px] absolute left-[16px] z-10"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<g clipPath="url(#clip0_817_776)">
+									<path
+										d="M8.00001 9.33325H8.66667C9.40001 9.33325 10 8.73325 10 7.99992V1.33325H4.00001C3.00001 1.33325 2.12667 1.88659 1.67334 2.69992"
+										stroke="#626262"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+									<path
+										d="M1.33334 11.3333C1.33334 12.4399 2.22668 13.3333 3.33334 13.3333H4.00001C4.00001 12.5999 4.60001 11.9999 5.33334 11.9999C6.06668 11.9999 6.66668 12.5999 6.66668 13.3333H9.33334C9.33334 12.5999 9.93334 11.9999 10.6667 11.9999C11.4 11.9999 12 12.5999 12 13.3333H12.6667C13.7733 13.3333 14.6667 12.4399 14.6667 11.3333V9.33325H12.6667C12.3 9.33325 12 9.03325 12 8.66659V6.66659C12 6.29992 12.3 5.99992 12.6667 5.99992H13.5267L12.3867 4.00659C12.2692 3.8026 12.1002 3.63304 11.8967 3.51487C11.6931 3.39671 11.4621 3.33408 11.2267 3.33325H10V7.99992C10 8.73325 9.40001 9.33325 8.66668 9.33325H8.00001"
+										stroke="#626262"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+									<path
+										d="M1.33334 5.33325H5.33334M1.33334 7.33325H4.00001M1.33334 9.33325H2.66668M5.33334 14.6666C5.68697 14.6666 6.0261 14.5261 6.27615 14.2761C6.5262 14.026 6.66668 13.6869 6.66668 13.3333C6.66668 12.9796 6.5262 12.6405 6.27615 12.3904C6.0261 12.1404 5.68697 11.9999 5.33334 11.9999C4.97972 11.9999 4.64058 12.1404 4.39053 12.3904C4.14049 12.6405 4.00001 12.9796 4.00001 13.3333C4.00001 13.6869 4.14049 14.026 4.39053 14.2761C4.64058 14.5261 4.97972 14.6666 5.33334 14.6666ZM10.6667 14.6666C11.0203 14.6666 11.3594 14.5261 11.6095 14.2761C11.8595 14.026 12 13.6869 12 13.3333C12 12.9796 11.8595 12.6405 11.6095 12.3904C11.3594 12.1404 11.0203 11.9999 10.6667 11.9999C10.3131 11.9999 9.97392 12.1404 9.72387 12.3904C9.47382 12.6405 9.33334 12.9796 9.33334 13.3333C9.33334 13.6869 9.47382 14.026 9.72387 14.2761C9.97392 14.5261 10.3131 14.6666 10.6667 14.6666ZM14.6667 7.99992V9.33325H12.6667C12.3 9.33325 12 9.03325 12 8.66659V6.66659C12 6.29992 12.3 5.99992 12.6667 5.99992H13.5267L14.6667 7.99992Z"
+										stroke="#626262"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</g>
+								<defs>
+									<clipPath id="clip0_817_776">
+										<rect width="16" height="16" fill="white" />
+									</clipPath>
+								</defs>
+							</svg>
+						}
 					/>
 
 					<Button
@@ -306,7 +305,21 @@ const UploadComponent = () => {
 						onClick={handleNext}
 					>
 						<Text>Next</Text>
-						<Image src={icons.arrowRight} />
+						<svg
+							width="13"
+							height="10"
+							viewBox="0 0 13 10"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M8.12001 0.953369L12.1667 5.00004L8.12001 9.0467M0.833344 5.00004H12.0533"
+								stroke="white"
+								strokeMiterlimit="10"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
 					</Button>
 				</Flex>
 			</Box>
