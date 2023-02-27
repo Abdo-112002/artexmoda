@@ -17,6 +17,7 @@ const AuthNavbar = () => {
 				<Link to="/">
 					<Flex alignItems="center" justifyContent={"center"} gap="3">
 						<svg
+							className="w-[27px] h-[29.31px]"
 							width="27"
 							height="29.31"
 							viewBox="0 0 28 30"

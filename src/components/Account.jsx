@@ -33,7 +33,10 @@ const Account = ({ linkName }) => {
 
 					<MenuItem
 						display={"flex"}
-						onClick={() => navigate("/")}
+						onClick={() => {
+							localStorage.clear();
+							navigate("/");
+						}}
 						alignItems="center"
 						gap="2"
 					>

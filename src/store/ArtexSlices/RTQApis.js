@@ -18,6 +18,7 @@ export const RtqApi = createApi({
 				},
 			}),
 		}),
+
 		register: builder.mutation({
 			query: (data) => ({
 				url: `${API_URL_REGISTER}`,

@@ -24,7 +24,9 @@ const DatePickerSelect = ({
 				selected={date}
 				onChange={(date) => setDate(date)}
 				onSelect={() => setFouces(false)}
+				onClickOutside={() => setFouces(false)}
 				placeholderText={holder}
+				dateFormat="dd/MM/yyyy"
 				customInput={<Input pl={pl} onSelect={() => setFouces(true)} />}
 			/>
 			{fouces ? (

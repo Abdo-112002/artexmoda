@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { useSelector } from "react-redux";
@@ -10,6 +10,15 @@ const Sidebar = () => {
 	const textColor = `${"var(--txt-white)"}`;
 
 	const { value } = useSelector((state) => state.toggle);
+	const [current, setCurrent] = useState("");
+
+	// get Current path
+	const currentPath = window.location.pathname;
+	const path = currentPath.split("/").pop();
+
+	useEffect(() => {
+		setCurrent(path);
+	}, [path]);
 
 	return (
 		<>
@@ -30,7 +39,18 @@ const Sidebar = () => {
 				gap="32px"
 			>
 				{/* Logo */}
-				<Link to="/">
+				<Link
+					to="/dashboard"
+					onClick={(e) => {
+						// get Current Link
+						const currentLink = e.currentTarget
+							.getAttribute("href")
+							.split("/")
+							.pop();
+						// remove Current Link
+						setCurrent(currentLink);
+					}}
+				>
 					<Box height={"31.26px"} w="120px">
 						<Box
 							position={"absolute"}
@@ -40,6 +60,7 @@ const Sidebar = () => {
 							right={value ? "14.5px" : "163px"}
 						>
 							<svg
+								className="w-[27px] h-[29.31px]"
 								width="27"
 								height="29.31"
 								viewBox="0 0 28 30"
@@ -100,7 +121,20 @@ const Sidebar = () => {
 							</Text>
 							{link.linksItem.map((item) => (
 								<React.Fragment key={item.name}>
-									<NavLink to={item.link} className="linkItem" end>
+									<NavLink
+										to={item.link}
+										className="linkItem"
+										onClick={(e) => {
+											// get Current Link
+											const currentLink = e.currentTarget
+												.getAttribute("href")
+												.split("/")
+												.pop();
+											// remove Current Link
+											setCurrent(currentLink);
+										}}
+										end
+									>
 										<Flex
 											alignItems={value ? "center" : "flex-start"}
 											justifyContent="center"
@@ -116,15 +150,30 @@ const Sidebar = () => {
 											width="100%"
 											h={value ? "35px" : "35px"}
 										>
-											<svg
-												width="17"
-												height="17"
-												viewBox="0 0 16 15"
-												fill="none"
-												xmlns="http://www.w3.org/2000/svg"
-											>
-												{item.icon}
-											</svg>
+											{current === item.link.split("/").slice(-1).join() ? (
+												<svg
+													className="w-[17px] h-[17px]"
+													width="17"
+													height="17"
+													viewBox="0 0 16 15"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													{item.soldIcon}
+												</svg>
+											) : (
+												<svg
+													className="w-[17px] h-[17px]"
+													width="17"
+													height="17"
+													viewBox="0 0 16 15"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													{item.outlineIcon}
+												</svg>
+											)}
+
 											{value ? null : (
 												<Text
 													color={"inherit"}

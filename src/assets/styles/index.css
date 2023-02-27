@@ -93,21 +93,6 @@ body {
     background-color: var(--main-color) !important;
 }
 
-.linkItem .sideLinks svg path {
-    stroke: #626262 !important;
-    fill: transparent !important;
-    stroke-width: 0.7px !important;
-}
-
-.linkItem.active .sideLinks svg path {
-    fill: white !important;
-    stroke: none !important;
-}
-
-.icon_hover:hover path {
-    stroke: var(--main-color);
-}
-
 /* DatePicker */
 .react-datepicker-wrapper {
     border: none;
@@ -217,7 +202,6 @@ body {
     font-weight: 400;
     font-size: 12px;
     text-align: center;
-    color: #1d1c2b;
     width: 30px;
     height: 30px;
 }

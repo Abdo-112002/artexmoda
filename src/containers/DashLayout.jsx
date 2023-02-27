@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { Navigation, Sidebar } from "../pages";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
+import withGuard from "../util/withGuard";
 
 const DashLayout = () => {
 	const { value } = useSelector((state) => state.toggle);
@@ -32,4 +33,4 @@ const DashLayout = () => {
 	);
 };
 
-export default DashLayout;
+export default withGuard(DashLayout);
