@@ -29,7 +29,7 @@ const Account = ({ linkName }) => {
 						{linkName}
 					</MenuItem>
 
-					<MenuDivider />
+					<MenuDivider m="0" />
 
 					<MenuItem
 						display={"flex"}
