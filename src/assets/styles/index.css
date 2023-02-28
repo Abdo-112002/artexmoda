@@ -217,3 +217,9 @@ body {
     background-color: var(--main-color) !important;
     color: var(--txt-white) !important;
 }
+
+/* Select */
+.css-1nmdiq5-menu {
+    z-index: 99;
+    position: absolute;
+}

@@ -31,25 +31,37 @@ const Login = () => {
 		login(data)
 			.unwrap()
 			.then((res) => {
+				// console.log(res);
 				if (res.status === 200) {
 					localStorage.setItem("token", res.jwtToken);
 					localStorage.setItem("user", JSON.stringify(res.userName));
 					localStorage.setItem("loggedIn", true);
 					navigate("/dashboard");
-				} else {
-					setError(true);
-					setMessage(res.data.message);
-					navigate("/");
 				}
 			})
 			.catch((err) => {
-				console.log(err);
-				setUserError(true);
-				setMessageUser(err.data.loginErrors.usernameError);
+				console.log(err.data);
+				// Check is error inclide password
+				if (err.data.loginErrors?.usernameError) {
+					setError(true);
+					setMessage(err.data.loginErrors.passwordError);
+					setUserError(true);
+					setMessageUser(err.data.loginErrors.usernameError);
+				} else if (err.data?.InvalidCred) {
+					setUserError(true);
+					setError(true);
+					setMessage(err.data.InvalidCred);
+					navigate("/");
+				} else {
+					setError(true);
+					setMessage(err.data.loginErrors.passwordError);
+				}
 			});
 		setTimeout(() => {
 			setError(false);
+			setMessage("");
 			setUserError(false);
+			setMessageUser("");
 		}, 5000);
 	};
 

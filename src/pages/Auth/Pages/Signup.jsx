@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { DefaultInput } from "../../../components";
 import { SelectedInput } from "../../../components/DefaultInput";
 
 import FormContainer from "./../Components/FormContainer";
+import { useRegisterMutation } from "../../../store/ArtexSlices/RTQApis";
 
 const Signup = () => {
-	const navigate = useNavigate();
-
 	const [data, setData] = useState({
 		email: "",
 		password: "",
-		company: "",
-		vat: "",
-		country: "",
-		business: "",
+		companyName: "",
+		vatNumber: "",
+		// country: "",
+		// business: "",
 	});
 
 	const [show, setShow] = useState(false);
@@ -24,10 +22,18 @@ const Signup = () => {
 		setData({ ...data, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		setError(false);
-		navigate("/");
+	const [register] = useRegisterMutation();
+
+	const handleSubmit = () => {
+		register(data)
+			.unwrap()
+			.then((res) => {
+				// console.log(res);
+			})
+			.catch((err) => {
+				console.log(err.data);
+				setError(true);
+			});
 	};
 
 	const countryOptions = [
@@ -144,10 +150,10 @@ const Signup = () => {
 			/>
 			<DefaultInput
 				type={"text"}
-				name={"company"}
+				name={"companyName"}
 				placeholder={"Company Name"}
 				onChange={handleChange}
-				value={data.company}
+				value={data.companyName}
 				leftIcons={
 					<svg
 						width="16"
@@ -169,10 +175,10 @@ const Signup = () => {
 			/>
 			<DefaultInput
 				type={"number"}
-				name={"vat"}
+				name={"vatNumber"}
 				placeholder={"Vat Number"}
 				onChange={handleChange}
-				value={data.vat}
+				value={data.vatNumber}
 				leftIcons={
 					<svg
 						width="16"

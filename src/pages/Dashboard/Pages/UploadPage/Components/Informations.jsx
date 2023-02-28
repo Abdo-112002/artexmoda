@@ -1,43 +1,189 @@
-import React from "react";
-import {
-	Accordion,
-	AccordionItem,
-	AccordionButton,
-	AccordionPanel,
-	AccordionIcon,
-	Box,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Accordion, Flex } from "@chakra-ui/react";
+import { Accordions, SelectInput } from "../../../../../components";
 
 const Informations = () => {
+	const [isSearchable, setIsSearchable] = useState(false);
+	const [data, setData] = useState({
+		brand: "",
+		model: "",
+	});
+
+	const handleChange = (e) => {
+		setData({
+			...data,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const options = [
+		{ value: "1", label: "Choose" },
+		{ value: "2", label: "Option 2" },
+		{ value: "3", label: "Option 3" },
+		{ value: "4", label: "Option 4" },
+		{ value: "5", label: "Option 5" },
+	];
+
 	return (
 		<>
-			<Accordion allowToggle w={"100%"}>
-				<AccordionItem
-					border={`2px solid ${"var(--border-color)"}`}
-					rounded="8px"
-				>
-					<h2>
-						<AccordionButton border={"none"} py="18px">
-							<Box
-								as="span"
-								flex="1"
-								textAlign="left"
-								fontSize={"14px"}
-								fontWeight="400"
-								color="#303030"
+			<Accordion allowToggle defaultIndex={[0]} w={"100%"}>
+				<Accordions
+					accName={"Main information"}
+					children={
+						<>
+							<Flex
+								flexDirection={"row"}
+								alignItems="center"
+								gap="16px"
+								w="100%"
 							>
-								Main information
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-					</h2>
-					<AccordionPanel pb={4}>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-						ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-						aliquip ex ea commodo consequat.
-					</AccordionPanel>
-				</AccordionItem>
+								<SelectInput
+									name="brand"
+									val={data.brand}
+									handelChange={handleChange}
+									isSearchable={isSearchable}
+									setIsSearchable={setIsSearchable}
+									options={options}
+									labelName="Brands"
+								/>
+								<SelectInput
+									name="brand"
+									val={data.brand}
+									handelChange={handleChange}
+									isSearchable={isSearchable}
+									setIsSearchable={setIsSearchable}
+									options={options}
+									labelName="Brands"
+								/>
+							</Flex>
+							<Flex
+								flexDirection={"row"}
+								alignItems="center"
+								gap="16px"
+								w="100%"
+							>
+								<SelectInput
+									name="brand"
+									val={data.brand}
+									handelChange={handleChange}
+									isSearchable={isSearchable}
+									setIsSearchable={setIsSearchable}
+									options={options}
+									labelName="Brands"
+								/>
+								<SelectInput
+									name="brand"
+									val={data.brand}
+									handelChange={handleChange}
+									isSearchable={isSearchable}
+									setIsSearchable={setIsSearchable}
+									options={options}
+									labelName="Brands"
+								/>
+							</Flex>
+							<Flex
+								flexDirection={"row"}
+								alignItems="center"
+								gap="16px"
+								w="100%"
+							>
+								<SelectInput
+									name="brand"
+									val={data.brand}
+									handelChange={handleChange}
+									isSearchable={isSearchable}
+									setIsSearchable={setIsSearchable}
+									options={options}
+									labelName="Brands"
+								/>
+								<SelectInput
+									name="brand"
+									val={data.brand}
+									handelChange={handleChange}
+									isSearchable={isSearchable}
+									setIsSearchable={setIsSearchable}
+									options={options}
+									labelName="Brands"
+								/>
+							</Flex>
+						</>
+					}
+				/>
+				<Accordions
+					accName={"Prtoduct information"}
+					children={
+						<Flex flexDirection={"row"} alignItems="center" gap="16px" w="100%">
+							<SelectInput
+								name="brand"
+								val={data.brand}
+								handelChange={handleChange}
+								isSearchable={isSearchable}
+								setIsSearchable={setIsSearchable}
+								options={options}
+								labelName="Brands"
+							/>
+							<SelectInput
+								name="brand"
+								val={data.brand}
+								handelChange={handleChange}
+								isSearchable={isSearchable}
+								setIsSearchable={setIsSearchable}
+								options={options}
+								labelName="Brands"
+							/>
+						</Flex>
+					}
+				/>
+				<Accordions
+					accName={"Colors and sizes information"}
+					children={
+						<Flex flexDirection={"row"} alignItems="center" gap="16px" w="100%">
+							<SelectInput
+								name="brand"
+								val={data.brand}
+								handelChange={handleChange}
+								isSearchable={isSearchable}
+								setIsSearchable={setIsSearchable}
+								options={options}
+								labelName="Brands"
+							/>
+							<SelectInput
+								name="brand"
+								val={data.brand}
+								handelChange={handleChange}
+								isSearchable={isSearchable}
+								setIsSearchable={setIsSearchable}
+								options={options}
+								labelName="Brands"
+							/>
+						</Flex>
+					}
+				/>
+				<Accordions
+					accName={"Other information"}
+					children={
+						<Flex flexDirection={"row"} alignItems="center" gap="16px" w="100%">
+							<SelectInput
+								name="brand"
+								val={data.brand}
+								handelChange={handleChange}
+								isSearchable={isSearchable}
+								setIsSearchable={setIsSearchable}
+								options={options}
+								labelName="Brands"
+							/>
+							<SelectInput
+								name="brand"
+								val={data.brand}
+								handelChange={handleChange}
+								isSearchable={isSearchable}
+								setIsSearchable={setIsSearchable}
+								options={options}
+								labelName="Brands"
+							/>
+						</Flex>
+					}
+				/>
 			</Accordion>
 		</>
 	);
