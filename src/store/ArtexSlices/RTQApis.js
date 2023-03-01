@@ -1,6 +1,10 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL_LOGIN, API_URL_REGISTER } from "../../common/Apis";
+import {
+	API_URL_LOGIN,
+	API_URL_REGISTER,
+	API_URL_UPLOAD_PRODUCTS,
+} from "../../common/Apis";
 
 // Define a service using a base URL and expected endpoints
 export const RtqApi = createApi({
@@ -30,9 +34,31 @@ export const RtqApi = createApi({
 			}),
 		}),
 		// Products
+		uploadProduct: builder.mutation({
+			query: ({
+				uploadSpreadsheetName,
+				uploadSpreadsheetFile,
+				uploadSpreadsheetImage,
+				preorderStartDate,
+				preorderEndDate,
+				expectedDeliveryDate,
+			}) => ({
+				url: `${API_URL_UPLOAD_PRODUCTS}`,
+				method: "POST",
+
+				headers: {
+					"Content-Type": "multipart/form-data",
+					Authorization: localStorage.getItem("token"),
+				},
+			}),
+		}),
 	}),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useLoginMutation, useRegisterMutation } = RtqApi;
+export const {
+	useLoginMutation,
+	useRegisterMutation,
+	useUploadProductMutation,
+} = RtqApi;

@@ -9,6 +9,7 @@ const DatePickerSelect = ({
 	fouces,
 	holder,
 	leftIcon,
+	name,
 	pl,
 }) => {
 	return (
@@ -27,7 +28,9 @@ const DatePickerSelect = ({
 				onClickOutside={() => setFouces(false)}
 				placeholderText={holder}
 				dateFormat="dd/MM/yyyy"
-				customInput={<Input pl={pl} onSelect={() => setFouces(true)} />}
+				customInput={
+					<Input pl={pl} onSelect={() => setFouces(true)} name={name} />
+				}
 			/>
 			{fouces ? (
 				<svg

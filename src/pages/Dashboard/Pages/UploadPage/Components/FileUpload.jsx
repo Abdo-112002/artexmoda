@@ -1,7 +1,14 @@
 import { Box, Flex, Image, Input, Text } from "@chakra-ui/react";
 import { icons } from "../../../../../assets";
 
-const FileUpload = ({ select, size, setSelectFile, functionSelect, error }) => {
+const FileUpload = ({
+	select,
+	size,
+	setSelectFile,
+	functionSelect,
+	error,
+	name,
+}) => {
 	const mainColor = `${"var(--main-color)"}`;
 	const whiteColoe = `${"var(--txt-white)"}`;
 
@@ -63,7 +70,7 @@ const FileUpload = ({ select, size, setSelectFile, functionSelect, error }) => {
 						<Input
 							type="file"
 							hidden
-							name="images"
+							name={name}
 							onChange={functionSelect}
 							// Accept excel ext
 							accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
@@ -77,6 +84,7 @@ const FileUpload = ({ select, size, setSelectFile, functionSelect, error }) => {
 					width="100%"
 					height="63px"
 					backgroundColor={mainColor}
+					border={error ? `2px dashed #FF0000` : ``}
 					rounded="8px"
 					position={"relative"}
 					display="flex"
@@ -103,7 +111,7 @@ const FileUpload = ({ select, size, setSelectFile, functionSelect, error }) => {
 
 					<Flex alignItems={"flex-start"} flexDirection="column" gap="1px">
 						<Text fontSize={"14px"} fontWeight="600" color={whiteColoe}>
-							{select.name}
+							{select.name?.slice(0, 20)}...
 						</Text>
 						<Text fontSize={"8px"} fontWeight="400" color={whiteColoe}>
 							{`${size.toFixed(3)} MB - XML file`}

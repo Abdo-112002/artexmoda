@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Image, Input, Text } from "@chakra-ui/react";
 
-const ImageSelected = ({ selected, functionSelect, setSelected }) => {
+const ImageSelected = ({ selected, functionSelect, setSelected, name }) => {
 	return (
 		<>
 			{selected === "" ? (
@@ -53,7 +53,7 @@ const ImageSelected = ({ selected, functionSelect, setSelected }) => {
 						<Input
 							type="file"
 							hidden
-							name="images"
+							name={name}
 							onChange={functionSelect}
 							// Accept Images
 							accept="image/png,image/jpeg,image/webp,image/jpg"

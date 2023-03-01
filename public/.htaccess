@@ -1,10 +1,10 @@
 <IfModule mod_rewrite.c>
 	Options -MultiViews	
 	RewriteEngine On 
-	RewriteBase / 
+	RewriteBase /brands
 	RewriteRule ^index\.html$ - [L] 
 	RewriteCond %{REQUEST_FILENAME} !-f 
 	RewriteCond %{REQUEST_FILENAME} !-d 
 	RewriteCond %{REQUEST_FILENAME} !-l
-	RewriteRule . /test/brands/index.html [L]
+	RewriteRule . /brands/index.html [L]
 </IfModule>

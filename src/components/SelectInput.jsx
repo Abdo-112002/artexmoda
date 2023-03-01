@@ -3,12 +3,13 @@ import { Flex, Text, Checkbox, Select, Input } from "@chakra-ui/react";
 
 const SelectInput = ({
 	labelName,
-	setIsSearchable,
+	checkName,
 	isSearchable,
 	val,
 	handelChange,
 	options,
 	name,
+	handelChangeCheck,
 }) => {
 	return (
 		<Flex flexDirection={"column"} alignItems="flex-start" gap="6px" w="100%">
@@ -27,11 +28,7 @@ const SelectInput = ({
 				>
 					{labelName}
 				</Text>
-				<Checkbox
-					onChange={() => {
-						setIsSearchable(!isSearchable);
-					}}
-				>
+				<Checkbox name={checkName} onChange={handelChangeCheck}>
 					<Text
 						fontSize={"12px"}
 						fontWeight="400"
@@ -63,7 +60,9 @@ const SelectInput = ({
 					onChange={handelChange}
 				>
 					{options.map((op) => (
-						<option value={op.value}>{op.label}</option>
+						<option value={op.value} key={op.value}>
+							{op.label}
+						</option>
 					))}
 				</Select>
 			)}

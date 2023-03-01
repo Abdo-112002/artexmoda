@@ -63,7 +63,8 @@ const ViewMore = () => {
 							Finish
 						</Button>
 					</Flex>
-					{showPopup && <PopUp UploadNumber={250} />}
+
+					<PopUp UploadNumber={250} show={showPopup} setShow={setShowPopup} />
 				</Box>
 			</Flex>
 		</>

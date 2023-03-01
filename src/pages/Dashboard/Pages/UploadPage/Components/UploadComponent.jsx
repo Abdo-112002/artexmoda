@@ -9,36 +9,52 @@ import { useNavigate } from "react-router-dom";
 import ImageSelected from "./ImageSelected";
 import FileUpload from "./FileUpload";
 import DatePickerSelect from "./DatePickerSelect";
+import SendWithToken from "../../../../../common/SendWithToken";
+import { API_URL_UPLOAD_PRODUCTS } from "../../../../../common/Apis";
 
 const UploadComponent = () => {
 	// Custon Navigate
 	const navigate = useNavigate();
+	const { http2 } = SendWithToken();
 
 	// Colors
 	const blackColor = `${"var(--black-color)"}`;
 	const mainColor = `${"var(--main-color)"}`;
 	const whiteColoe = `${"var(--txt-white)"}`;
 
-	// States
+	// Error State
 	const [error, setError] = useState(false);
 	const [acceptTrue, setAcceptTrue] = useState(false);
 	const [acceptImage, setAcceptImage] = useState(false);
+	const [nameIsExist, setNameIsExist] = useState(false);
+	const [fileIsExist, setFileIsExist] = useState(false);
+	const [messageExist, setMessageExist] = useState("");
+
+	// Selected View State
 	const [selectedImages, setSelectedImages] = useState("");
 	const [selectFile, setSelectFile] = useState("");
 	const [size, setSized] = useState(0);
-	const [data, setData] = useState({
-		name: "",
-	});
-	const [startDate, setStartDate] = useState();
-	const [endDate, setEndDate] = useState();
-	const [estimatedDelivery, setEstimatedDelivery] = useState();
+
+	// Foucs Icon State
+	const [loading, setLoading] = useState(false);
 	const [startFouces, setStartFouces] = useState(false);
 	const [endFouces, setEndFouces] = useState(false);
 	const [estFouces, setEstFouces] = useState(false);
 
+	// Data Send State
+	const [dataSend, setDataSend] = useState({
+		uploadSpreadsheetName: "",
+	});
+	const [uploadSpreadsheetFile, setUploadSpreadsheetFile] = useState([]);
+	const [uploadSpreadsheetImage, setUploadSpreadsheetImage] = useState([]);
+	const [preorderStartDate, setPreorderStartDate] = useState("");
+	const [preorderEndDate, setPreorderEndDate] = useState("");
+	const [expectedDeliveryDate, setExpectedDeliveryDate] = useState("");
+
 	// Functions
 	const onSelectImage = (event) => {
 		const selectedFiles = event.target.files[0];
+		setUploadSpreadsheetImage(selectedFiles);
 		// get accept and validate he is include selectFile or no
 		const accept = event.target.accept;
 		const acceptArray = accept.split(",");
@@ -56,6 +72,7 @@ const UploadComponent = () => {
 
 	const onSelectFile = (event) => {
 		const selectedFiles = event.target.files[0];
+		setUploadSpreadsheetFile(selectedFiles);
 		// get accept and validate he is include selectFile or no
 		const accept = event.target.accept;
 		const acceptArray = accept.split(",");
@@ -74,23 +91,59 @@ const UploadComponent = () => {
 		event.target.value = "";
 	};
 
-	// Handel Change Function
-	const handleChange = (event) => {
+	// handelOnChange
+	const handelOnChange = (event) => {
 		const { name, value } = event.target;
-		setData({ ...data, [name]: value });
+		setDataSend({
+			...dataSend,
+			[name]: value,
+		});
 	};
 
-	// Handel Next Function And Validate
-	const handleNext = () => {
-		// Check is All Data not empty
-		if (data.name && selectedImages && selectFile) {
-			console.log(data);
-			navigate("view");
-		} else {
-			// Get Current empty data and return error
-			console.log("Empty Data");
+	// Handel Submit Function
+	const handleSubmit = () => {
+		setLoading(true);
+		// Check data is Empty or no
+		if (
+			dataSend.uploadSpreadsheetName === "" &&
+			uploadSpreadsheetFile.length === 0 &&
+			uploadSpreadsheetImage.length === 0
+		) {
 			setError(true);
+			setTimeout(() => {
+				setError(false);
+			}, 3000);
 		}
+		// Send Form Data using axios
+		http2
+			.post(`${API_URL_UPLOAD_PRODUCTS}`, {
+				uploadSpreadsheetName: dataSend.uploadSpreadsheetName,
+				uploadSpreadsheetFile: uploadSpreadsheetFile,
+				uploadSpreadsheetImage: uploadSpreadsheetImage,
+				preorderStartDate: preorderStartDate,
+				preorderEndDate: preorderEndDate,
+				expectedDeliveryDate: expectedDeliveryDate,
+			})
+			.then((res) => {
+				setLoading(false);
+				if (res.data.status === 200) {
+					localStorage.setItem("fileId", res.data.spreadsheetId);
+					navigate("view");
+				}
+			})
+			.catch((err) => {
+				setLoading(false);
+				if (err.response.data.uploadFormErrors.catalougueNameError) {
+					setSelectFile("");
+					setFileIsExist(true);
+					setMessageExist(
+						err.response.data.uploadFormErrors.catalougueNameError
+					);
+					setTimeout(() => {
+						setFileIsExist(false);
+					}, 3000);
+				}
+			});
 	};
 
 	return (
@@ -158,12 +211,13 @@ const UploadComponent = () => {
 						setSelected={setSelectedImages}
 						// error or
 						error={error || acceptImage}
+						name={"uploadSpreadsheetImage"}
 					/>
 
 					<DefaultInput
 						placeholder="Catalougue name"
 						type="text"
-						error={error}
+						error={error || nameIsExist}
 						leftIcons={
 							<svg
 								width="16"
@@ -188,9 +242,9 @@ const UploadComponent = () => {
 								/>
 							</svg>
 						}
-						name={"name"}
-						value={data.name}
-						onChange={handleChange}
+						name={"uploadSpreadsheetName"}
+						value={dataSend.uploadSpreadsheetName}
+						onChange={handelOnChange}
 						isPassword={false}
 					/>
 
@@ -200,7 +254,8 @@ const UploadComponent = () => {
 						select={selectFile}
 						setSelectFile={setSelectFile}
 						size={size}
-						error={error || acceptTrue}
+						error={error || acceptTrue || fileIsExist}
+						name={"uploadSpreadsheetFile"}
 					/>
 
 					<Flex
@@ -229,27 +284,30 @@ const UploadComponent = () => {
 							</Text>
 							<DatePickerSelect
 								holder={"From"}
-								date={startDate}
-								setDate={setStartDate}
+								date={preorderStartDate}
+								name={"preorderStartDate"}
+								setDate={setPreorderStartDate}
 								fouces={startFouces}
 								setFouces={setStartFouces}
 							/>
 						</Flex>
 						<DatePickerSelect
 							holder={"To"}
-							date={endDate}
-							setDate={setEndDate}
+							date={preorderEndDate}
+							setDate={setPreorderEndDate}
 							fouces={endFouces}
 							setFouces={setEndFouces}
+							name={"preorderEndDate"}
 						/>
 					</Flex>
 
 					<DatePickerSelect
 						holder={"Estimated delivery"}
-						date={estimatedDelivery}
-						setDate={setEstimatedDelivery}
+						date={expectedDeliveryDate}
+						setDate={setExpectedDeliveryDate}
 						fouces={estFouces}
 						setFouces={setEstFouces}
+						name={"expectedDeliveryDate"}
 						pl="40px !important"
 						leftIcon={
 							<svg
@@ -302,27 +360,39 @@ const UploadComponent = () => {
 						gap="8px"
 						alignItems="center"
 						justifyContent="center"
-						onClick={handleNext}
+						onClick={handleSubmit}
 					>
-						<Text>Next</Text>
-						<svg
-							width="13"
-							height="10"
-							viewBox="0 0 13 10"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M8.12001 0.953369L12.1667 5.00004L8.12001 9.0467M0.833344 5.00004H12.0533"
-								stroke="white"
-								strokeMiterlimit="10"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							/>
-						</svg>
+						{loading ? (
+							<div
+								className="spinner-border spinner-border-sm text-white"
+								role="status"
+							>
+								<span className="visually-hidden">Loading...</span>
+							</div>
+						) : (
+							<>
+								<Text>Next</Text>
+								<svg
+									width="13"
+									height="10"
+									viewBox="0 0 13 10"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M8.12001 0.953369L12.1667 5.00004L8.12001 9.0467M0.833344 5.00004H12.0533"
+										stroke="white"
+										strokeMiterlimit="10"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</svg>
+							</>
+						)}
 					</Button>
 				</Flex>
 			</Box>
+
 			{/* Errors */}
 			{error && (
 				<Error
@@ -349,6 +419,24 @@ const UploadComponent = () => {
 					whiteColoe={whiteColoe}
 					text={"it’s not a valid image!"}
 					message={"Please try to upload another image"}
+				/>
+			)}
+			{fileIsExist && (
+				<Error
+					active={fileIsExist}
+					setActive={setFileIsExist}
+					whiteColoe={whiteColoe}
+					text={"Oh!"}
+					message={messageExist}
+				/>
+			)}
+			{nameIsExist && (
+				<Error
+					active={nameIsExist}
+					setActive={setNameIsExist}
+					whiteColoe={whiteColoe}
+					text={"Oh!"}
+					message={messageExist}
 				/>
 			)}
 		</>

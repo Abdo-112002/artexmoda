@@ -66,15 +66,15 @@ const ViewComponent = () => {
 								<path
 									d="M5.33333 1.96655V3.96655M10.6667 1.96655V3.96655M2.33333 6.69322H13.6667M14 6.29989V11.9666C14 13.9666 13 15.2999 10.6667 15.2999H5.33333C3 15.2999 2 13.9666 2 11.9666V6.29989C2 4.29989 3 2.96655 5.33333 2.96655H10.6667C13 2.96655 14 4.29989 14 6.29989Z"
 									stroke="#2759CD"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M10.4633 9.7666H10.4693M10.4633 11.7666H10.4693M7.99663 9.7666H8.0033M7.99663 11.7666H8.0033M5.5293 9.7666H5.53596M5.5293 11.7666H5.53596"
 									stroke="#2759CD"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 						</Box>
@@ -112,15 +112,15 @@ const ViewComponent = () => {
 								<path
 									d="M5.33333 1.96655V3.96655M10.6667 1.96655V3.96655M2.33333 6.69322H13.6667M14 6.29989V11.9666C14 13.9666 13 15.2999 10.6667 15.2999H5.33333C3 15.2999 2 13.9666 2 11.9666V6.29989C2 4.29989 3 2.96655 5.33333 2.96655H10.6667C13 2.96655 14 4.29989 14 6.29989Z"
 									stroke="#2759CD"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M10.4633 9.7666H10.4693M10.4633 11.7666H10.4693M7.99663 9.7666H8.0033M7.99663 11.7666H8.0033M5.5293 9.7666H5.53596M5.5293 11.7666H5.53596"
 									stroke="#2759CD"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 						</Box>
