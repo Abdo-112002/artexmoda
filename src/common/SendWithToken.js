@@ -6,6 +6,7 @@ export default function SendWithToken() {
 		baseURL: `${API_URL}/`,
 		headers: {
 			"Content-type": "application/json",
+			Authorization: localStorage.getItem("token"),
 		},
 	});
 

@@ -1,15 +1,16 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+	API_URL,
 	API_URL_LOGIN,
 	API_URL_REGISTER,
-	API_URL_UPLOAD_PRODUCTS,
+	API_URL_GET_PRODUCTS,
 } from "../../common/Apis";
 
 // Define a service using a base URL and expected endpoints
 export const RtqApi = createApi({
 	reducerPath: "RtqApi",
-	baseQuery: fetchBaseQuery({ baseUrl: "https://forsaapis.mhouses.net/api/" }),
+	baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
 	endpoints: (builder) => ({
 		// Auth
 		login: builder.mutation({
@@ -33,21 +34,17 @@ export const RtqApi = createApi({
 				},
 			}),
 		}),
-		// Products
-		uploadProduct: builder.mutation({
-			query: ({
-				uploadSpreadsheetName,
-				uploadSpreadsheetFile,
-				uploadSpreadsheetImage,
-				preorderStartDate,
-				preorderEndDate,
-				expectedDeliveryDate,
-			}) => ({
-				url: `${API_URL_UPLOAD_PRODUCTS}`,
-				method: "POST",
 
+		// Get Product
+		getProduct: builder.query({
+			query: (id) => ({
+				url: `${API_URL_GET_PRODUCTS}`,
+				method: "GET",
+				params: {
+					spreadsheetId: id,
+				},
 				headers: {
-					"Content-Type": "multipart/form-data",
+					"Content-Type": "application/json",
 					Authorization: localStorage.getItem("token"),
 				},
 			}),
@@ -57,8 +54,5 @@ export const RtqApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const {
-	useLoginMutation,
-	useRegisterMutation,
-	useUploadProductMutation,
-} = RtqApi;
+export const { useLoginMutation, useRegisterMutation, useGetProductQuery } =
+	RtqApi;

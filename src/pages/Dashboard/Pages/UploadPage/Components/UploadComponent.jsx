@@ -45,8 +45,8 @@ const UploadComponent = () => {
 	const [dataSend, setDataSend] = useState({
 		uploadSpreadsheetName: "",
 	});
-	const [uploadSpreadsheetFile, setUploadSpreadsheetFile] = useState([]);
-	const [uploadSpreadsheetImage, setUploadSpreadsheetImage] = useState([]);
+	const [uploadSpreadsheetFile, setUploadSpreadsheetFile] = useState("");
+	const [uploadSpreadsheetImage, setUploadSpreadsheetImage] = useState("");
 	const [preorderStartDate, setPreorderStartDate] = useState("");
 	const [preorderEndDate, setPreorderEndDate] = useState("");
 	const [expectedDeliveryDate, setExpectedDeliveryDate] = useState("");
@@ -106,8 +106,8 @@ const UploadComponent = () => {
 		// Check data is Empty or no
 		if (
 			dataSend.uploadSpreadsheetName === "" &&
-			uploadSpreadsheetFile.length === 0 &&
-			uploadSpreadsheetImage.length === 0
+			uploadSpreadsheetFile === "" &&
+			uploadSpreadsheetImage === ""
 		) {
 			setError(true);
 			setTimeout(() => {
@@ -125,6 +125,7 @@ const UploadComponent = () => {
 				expectedDeliveryDate: expectedDeliveryDate,
 			})
 			.then((res) => {
+				console.log(res);
 				setLoading(false);
 				if (res.data.status === 200) {
 					localStorage.setItem("fileId", res.data.spreadsheetId);
@@ -132,6 +133,7 @@ const UploadComponent = () => {
 				}
 			})
 			.catch((err) => {
+				console.log(err);
 				setLoading(false);
 				if (err.response.data.uploadFormErrors.catalougueNameError) {
 					setSelectFile("");

@@ -1,22 +1,24 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { images } from "../../../../../assets";
-import { useNavigate } from "react-router-dom";
+import { API_URL_FIXED_URL } from "../../../../../common/Apis";
 import { DefaultButton } from "../../../../../components";
 
-const ViewComponent = () => {
+const ViewComponent = ({ dataView }) => {
 	// Colors
 	const mainColor = `${"var(--main-color)"}`;
 
-	const navigate = useNavigate();
-
-	const onClick = () => {
-		navigate("/dashboard/upload");
-	};
-
 	return (
 		<>
-			<Image src={images.testView} height="203.63px" w="100%" />
+			<Image
+				src={
+					dataView?.spreadsheetImagePath
+						? `${API_URL_FIXED_URL}${dataView?.spreadsheetImagePath}`
+						: images.testView
+				}
+				height="203.63px"
+				w="100%"
+			/>
 			<Box
 				p="16px"
 				display={"flex"}
@@ -26,10 +28,11 @@ const ViewComponent = () => {
 			>
 				<Text
 					fontSize={"18px"}
+					h="50px"
 					fontWeight="400"
 					color={`${"var(--black-color)"}`}
 				>
-					SR23 - BOSS Black <br /> Menswear
+					{dataView?.spreadsheetName}
 				</Text>
 
 				<Box display={"flex"} flexDirection="column" gap="16px" w="100%">
@@ -53,7 +56,7 @@ const ViewComponent = () => {
 								fontWeight="400"
 								color={`${"var(--main-color)"}`}
 							>
-								27/07/2022 - 23/01/2023
+								{dataView?.preorderStartDate} - {dataView?.preorderEndDate}
 							</Text>
 							<svg
 								className="w-[16px] h-[16px]"
@@ -99,7 +102,7 @@ const ViewComponent = () => {
 								fontWeight="400"
 								color={`${"var(--main-color)"}`}
 							>
-								12/04/203
+								{dataView?.expectedDeliveryDate}
 							</Text>
 							<svg
 								className="w-[16px] h-[16px]"
@@ -138,7 +141,7 @@ const ViewComponent = () => {
 					padding="8px 16px"
 				>
 					<Text fontSize={"14px"} fontWeight="400" color={"#626262"}>
-						File_name_super_long_na...
+						{dataView?.spreadsheetFile}
 					</Text>
 				</Box>
 
@@ -146,7 +149,6 @@ const ViewComponent = () => {
 					bgColor={mainColor}
 					buttonMargin="0"
 					buttonName={"View File"}
-					handelClick={onClick}
 					rounded="8px"
 					size={"md"}
 					width="100%"

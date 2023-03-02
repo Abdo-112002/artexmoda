@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMode } from "../store/ArtexSlices/ThemeSlice";
 import { Box, Container } from "@chakra-ui/react";
 
+import LogibGuard from "../util/LogibGuard";
+
 const AuthLayout = () => {
 	const { mode } = useSelector((state) => state.theme);
 
@@ -32,4 +34,4 @@ const AuthLayout = () => {
 	);
 };
 
-export default AuthLayout;
+export default LogibGuard(AuthLayout);

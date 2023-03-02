@@ -95,7 +95,7 @@ const PopUp = ({ UploadNumber, show, setShow }) => {
 									textTransform={"capitalize"}
 									color="#000000"
 								>
-									{UploadNumber} products is successfully imported
+									{UploadNumber}
 								</Text>
 								<Text
 									fontSize={"13px"}

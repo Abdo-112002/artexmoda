@@ -10,6 +10,9 @@ const SelectInput = ({
 	options,
 	name,
 	handelChangeCheck,
+	notSelect,
+	list,
+	handleFixedChange,
 }) => {
 	return (
 		<Flex flexDirection={"column"} alignItems="flex-start" gap="6px" w="100%">
@@ -28,28 +31,39 @@ const SelectInput = ({
 				>
 					{labelName}
 				</Text>
-				<Checkbox name={checkName} onChange={handelChangeCheck}>
-					<Text
-						fontSize={"12px"}
-						fontWeight="400"
-						lineHeight={"20px"}
-						color="#626262"
-					>
-						Fixed value
-					</Text>
-				</Checkbox>
+				{notSelect ? null : (
+					<Checkbox name={checkName} onChange={handelChangeCheck}>
+						<Text
+							fontSize={"12px"}
+							fontWeight="400"
+							lineHeight={"20px"}
+							color="#626262"
+						>
+							Fixed value
+						</Text>
+					</Checkbox>
+				)}
 			</Flex>
 			{isSearchable ? (
-				<Input
-					fontSize={"14px"}
-					fontWeight="400"
-					lineHeight={"20px"}
-					placeholder="Type Here"
-					color="#303030"
-					name={name}
-					value={val}
-					onChange={handelChange}
-				/>
+				<>
+					<Input
+						fontSize={"14px"}
+						fontWeight="400"
+						lineHeight={"20px"}
+						placeholder="Type Here"
+						color="#303030"
+						list="fixed"
+						name={name}
+						onChange={handleFixedChange}
+					/>
+					<datalist id="fixed">
+						{list?.map((option, index) => (
+							<option key={index} value={option.nome}>
+								{option.nome}
+							</option>
+						))}
+					</datalist>
+				</>
 			) : (
 				<Select
 					fontSize={"14px"}
@@ -59,9 +73,10 @@ const SelectInput = ({
 					name={name}
 					onChange={handelChange}
 				>
-					{options.map((op) => (
-						<option value={op.value} key={op.value}>
-							{op.label}
+					<option>Choose</option>
+					{options?.map((op, index) => (
+						<option value={index} key={index}>
+							{op}
 						</option>
 					))}
 				</Select>

@@ -1,39 +1,14 @@
 import React, { useState } from "react";
-import { Accordion, Flex } from "@chakra-ui/react";
-import { Accordions, SelectInput } from "../../../../../components";
+import { Accordion, Button, Flex } from "@chakra-ui/react";
+import { Accordions, PopUp, SelectInput } from "../../../../../components";
+import { useNavigate } from "react-router-dom";
+import SendWithToken from "./../../../../../common/SendWithToken";
+import {
+	API_URL_GET_FIXED,
+	API_URL_UPLOAD_PRODUCTS2,
+} from "./../../../../../common/Apis";
 
 export const FlexBox = ({ children }) => {
-	// const [isOpen, setIsOpen] = useState(false);
-	// const [isOpen2, setIsOpen2] = useState(false);
-	// const [isOpen3, setIsOpen3] = useState(false);
-	// const [isOpen4, setIsOpen4] = useState(false);
-	// const [isOpen5, setIsOpen5] = useState(false);
-	// const [isOpen6, setIsOpen6] = useState(false);
-	// const [isOpen7, setIsOpen7] = useState(false);
-	// const [isOpen8, setIsOpen8] = useState(false);
-	// const [isOpen9, setIsOpen9] = useState(false);
-	// const [isOpen10, setIsOpen10] = useState(false);
-	// const [isOpen11, setIsOpen11] = useState(false);
-	// const [isOpen12, setIsOpen12] = useState(false);
-	// const [isOpen13, setIsOpen13] = useState(false);
-	// const [isOpen14, setIsOpen14] = useState(false);
-	// const [isOpen15, setIsOpen15] = useState(false);
-	// const [isOpen16, setIsOpen16] = useState(false);
-	// const [isOpen17, setIsOpen17] = useState(false);
-	// const [isOpen18, setIsOpen18] = useState(false);
-	// const [isOpen19, setIsOpen19] = useState(false);
-	// const [isOpen20, setIsOpen20] = useState(false);
-	// const [isOpen21, setIsOpen21] = useState(false);
-	// const [isOpen22, setIsOpen22] = useState(false);
-	// const [isOpen23, setIsOpen23] = useState(false);
-	// const [isOpen24, setIsOpen24] = useState(false);
-	// const [isOpen25, setIsOpen25] = useState(false);
-	// const [isOpen26, setIsOpen26] = useState(false);
-	// const [isOpen27, setIsOpen27] = useState(false);
-	// const [isOpen28, setIsOpen28] = useState(false);
-	// const [isOpen29, setIsOpen29] = useState(false);
-	// const [isOpen30, setIsOpen30] = useState(false);
-
 	return (
 		<>
 			<Flex
@@ -48,85 +23,100 @@ export const FlexBox = ({ children }) => {
 	);
 };
 
-const Informations = () => {
+const Informations = ({ infoData }) => {
+	const { http, http2 } = SendWithToken();
+	const [fixedValue, setfixedValue] = useState();
+
 	const [data, setData] = useState({
 		// Main Information
-		Brand: "",
-		Year: "",
-		Season: "",
-		SubSeason: "",
-		SeasonCode: "",
-		Collection: "",
-		Department: "",
-		DepartmentCode: "",
-		Category: "",
+		brand: 99,
+		year: 99,
+		season: 99,
+		subSeason: 99,
+		seasonCode: 99,
+		collection: 99,
+		department: 99,
+		departmentCode: 99,
+		category: 99,
 		// Product Information
-		ProductType: "",
-		ProductDescribtion: "",
-		ModelCode: "",
-		PartCode: "",
+		productType: 99,
+		productDesc: 99,
+		modelCode: 99,
+		partCode: 99,
 		// Color Information
-		ColorPicture: "",
-		ColorCode: "",
-		Color: "",
-		ColorTheme: "",
-		Fabric: "",
-		FabricCode: "",
-		MadeIn: "",
-		ArticleCode: "",
-		Describtion: "",
-		Producer: "",
-		SizeChart: "",
+		colorPicture: 99,
+		colorCode: 99,
+		color: 99,
+		colorTheme: 99,
+		fabric: 99,
+		fabricCode: 99,
+		madeIn: 99,
+		articleCode: 99,
+		describtion: 99,
+		producer: 99,
+		sizeChart: 99,
 		// Other Information
-		Cost: "",
-		SaleCost1: "",
-		SaleCost2: "",
-		SaleCost3: "",
-		StockCost: "",
-		HocCost: "",
-		RwtPrice: "",
-		Pictures: "",
+		cost: 99,
+		saleCost1: 99,
+		saleCost2: 99,
+		saleCost3: 99,
+		stockCost: 99,
+		adHocCost: 99,
+		RWTprice: 99,
+		pictures: 99,
 	});
 
+	console.log(data);
 	const [check, setCheck] = useState({
-		check1: false,
-		check2: false,
-		check3: false,
-		check4: false,
-		check5: false,
-		check6: false,
-		check7: false,
-		check8: false,
-		check9: false,
-		check10: false,
-		check11: false,
-		check12: false,
-		check13: false,
-		check14: false,
-		check15: false,
-		check16: false,
-		check17: false,
-		check18: false,
-		check19: false,
-		check20: false,
-		check21: false,
-		check22: false,
-		check23: false,
-		check24: false,
-		check25: false,
-		check26: false,
-		check27: false,
-		check28: false,
-		check29: false,
-		check30: false,
-		check31: false,
-		check32: false,
+		// Main Information
+		brand: false,
+		year: false,
+		season: false,
+		subSeason: false,
+		seasonCode: false,
+		collection: false,
+		department: false,
+		departmentCode: false,
+		category: false,
+		// Product Information
+		productType: false,
+		productDesc: false,
+		modelCode: false,
+		partCode: false,
+		// Color Information
+		colorPicture: false,
+		colorCode: false,
+		color: false,
+		colorTheme: false,
+		fabric: false,
+		fabricCode: false,
+		madeIn: false,
+		articleCode: false,
+		describtion: false,
+		producer: false,
+		sizeChart: false,
+		// Other Information
+		cost: false,
+		saleCost1: false,
+		saleCost2: false,
+		saleCost3: false,
+		stockCost: false,
+		adHocCost: false,
+		RWTprice: false,
+		pictures: false,
 	});
 
 	const handleChange = (e) => {
 		setData({
 			...data,
-			[e.target.name]: e.target.value,
+			[e.target.name]: parseInt(e.target.value),
+		});
+	};
+
+	const handleFixedChange = (e) => {
+		setData({
+			...data,
+			[e.target.name]: [e.target.name, e.target.value],
 		});
 	};
 
@@ -135,15 +125,48 @@ const Informations = () => {
 			...check,
 			[e.target.name]: e.target.checked,
 		});
+		// get currend checked and get name
+		let name = e.target.name;
+		let checked = e.target.checked;
+		if (checked) {
+			http2
+				.get(API_URL_GET_FIXED, {
+					params: {
+						fixedValueSelect: name,
+					},
+				})
+				.then((res) => {
+					setfixedValue(res.data.fixedValues);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
-	const options = [
-		{ value: "1", label: "Choose" },
-		{ value: "2", label: "Option 2" },
-		{ value: "3", label: "Option 3" },
-		{ value: "4", label: "Option 4" },
-		{ value: "5", label: "Option 5" },
-	];
+	const [showPopup, setShowPopup] = useState(false);
+	const [showPopupMessage, setShowPopupMessage] = useState("");
+	const navigate = useNavigate();
+	const backHandel = () => {
+		localStorage.removeItem("fileId");
+		navigate("/dashboard/upload");
+	};
+
+	const handelSendData = () => {
+		http
+			.post(API_URL_UPLOAD_PRODUCTS2, {
+				spreadsheetId: localStorage.getItem("fileId"),
+				selectedColumnVal: data,
+			})
+			.then((res) => {
+				console.log(res);
+				setShowPopupMessage(res.data.succesMessage);
+				setShowPopup(true);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	return (
 		<>
@@ -154,100 +177,110 @@ const Informations = () => {
 						<>
 							<FlexBox>
 								<SelectInput
-									name="Brand"
-									val={data.Brand}
+									name="brand"
+									val={data.brand}
 									handelChange={handleChange}
-									isSearchable={check.check1}
+									isSearchable={check.brand}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check1"
-									options={options}
+									checkName="brand"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
+									list={fixedValue}
 									labelName="Brand"
 								/>
 								<SelectInput
-									name="Year"
-									val={data.Year}
+									name="year"
+									val={data.year}
 									handelChange={handleChange}
-									isSearchable={check.check2}
+									isSearchable={check.year}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check2"
-									options={options}
+									checkName="year"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Year"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="Season"
-									val={data.Season}
+									name="season"
+									val={data.season}
 									handelChange={handleChange}
-									isSearchable={check.check3}
+									isSearchable={check.season}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check3"
-									options={options}
+									checkName="season"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Season"
 								/>
 								<SelectInput
-									name="SubSeason"
-									val={data.SubSeason}
+									name="subSeason"
+									val={data.subSeason}
 									handelChange={handleChange}
-									isSearchable={check.check4}
+									isSearchable={check.subSeason}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check4"
-									options={options}
+									checkName="subSeason"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Sub Season"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="SeasonCode"
-									val={data.SeasonCode}
+									name="seasonCode"
+									val={data.seasonCode}
 									handelChange={handleChange}
-									isSearchable={check.check5}
+									isSearchable={check.seasonCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check5"
-									options={options}
+									checkName="seasonCode"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Season Code"
 								/>
 								<SelectInput
-									name="Collection"
-									val={data.Collection}
+									name="collection"
+									val={data.collection}
 									handelChange={handleChange}
-									isSearchable={check.check6}
+									isSearchable={check.collection}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check6"
-									options={options}
+									checkName="collection"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Collection"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="Department"
-									val={data.Department}
+									name="department"
+									val={data.department}
 									handelChange={handleChange}
-									isSearchable={check.check7}
+									isSearchable={check.department}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check7"
-									options={options}
+									checkName="department"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Department"
 								/>
 								<SelectInput
-									name="DepartmentCode"
-									val={data.DepartmentCode}
+									name="departmentCode"
+									val={data.departmentCode}
 									handelChange={handleChange}
-									isSearchable={check.check8}
+									isSearchable={check.departmentCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check8"
-									options={options}
+									checkName="departmentCode"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Department Code"
 								/>
 							</FlexBox>
 							<SelectInput
-								name="Category"
-								val={data.Category}
+								name="category"
+								val={data.category}
 								handelChange={handleChange}
-								isSearchable={check.check9}
+								isSearchable={check.category}
 								handelChangeCheck={handleChangeCheck}
-								checkName="check9"
-								options={options}
+								checkName="category"
+								handleFixedChange={handleFixedChange}
+								options={infoData}
 								labelName="Category"
 							/>
 						</>
@@ -259,45 +292,49 @@ const Informations = () => {
 						<>
 							<FlexBox>
 								<SelectInput
-									name="ProductType"
-									val={data.ProductType}
+									name="productType"
+									val={data.productType}
 									handelChange={handleChange}
-									isSearchable={check.check10}
+									isSearchable={check.productType}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check10"
-									options={options}
+									checkName="productType"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Product Type"
 								/>
 								<SelectInput
-									name="ProductDescribtion"
-									val={data.ProductDescribtion}
+									name="productDesc"
+									val={data.productDesc}
 									handelChange={handleChange}
-									isSearchable={check.check11}
+									isSearchable={check.productDesc}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check11"
-									options={options}
+									checkName="productDesc"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Product Describtion"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="ModelCode"
-									val={data.ModelCode}
+									name="modelCode"
+									val={data.modelCode}
 									handelChange={handleChange}
-									isSearchable={check.check12}
+									isSearchable={check.modelCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check12"
-									options={options}
+									checkName="modelCode"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Model Code"
 								/>
 								<SelectInput
-									name="PartCode"
-									val={data.PartCode}
+									name="partCode"
+									val={data.partCode}
 									handelChange={handleChange}
-									isSearchable={check.check13}
+									isSearchable={check.partCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check13"
-									options={options}
+									checkName="partCode"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Part Code"
 								/>
 							</FlexBox>
@@ -310,122 +347,133 @@ const Informations = () => {
 						<>
 							<FlexBox>
 								<SelectInput
-									name="ColorPicture"
-									val={data.ColorPicture}
+									name="colorPicture"
+									val={data.colorPicture}
 									handelChange={handleChange}
-									isSearchable={check.check14}
+									isSearchable={check.colorPicture}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check14"
-									options={options}
+									checkName="colorPicture"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Color Picture"
 								/>
 								<SelectInput
-									name="ColorCode"
-									val={data.ColorCode}
+									name="colorCode"
+									val={data.colorCode}
 									handelChange={handleChange}
-									isSearchable={check.check15}
+									isSearchable={check.colorCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check15"
-									options={options}
+									checkName="colorCode"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Color Code"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="Color"
-									val={data.Color}
+									name="color"
+									val={data.color}
 									handelChange={handleChange}
-									isSearchable={check.check16}
+									isSearchable={check.color}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check16"
-									options={options}
+									checkName="color"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Color"
 								/>
 								<SelectInput
-									name="ColorTheme"
-									val={data.ColorTheme}
+									name="colorTheme"
+									val={data.colorTheme}
 									handelChange={handleChange}
-									isSearchable={check.check17}
+									isSearchable={check.colorTheme}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check17"
-									options={options}
+									checkName="colorTheme"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Color Theme"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="Fabric"
-									val={data.Fabric}
+									name="fabric"
+									val={data.fabric}
 									handelChange={handleChange}
-									isSearchable={check.check18}
+									isSearchable={check.fabric}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check18"
-									options={options}
+									checkName="fabric"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Fabric"
 								/>
 								<SelectInput
-									name="FabricCode"
-									val={data.FabricCode}
+									name="fabricCode"
+									val={data.fabricCode}
 									handelChange={handleChange}
-									isSearchable={check.check19}
+									isSearchable={check.fabricCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check19"
-									options={options}
+									checkName="fabricCode"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Fabric Code"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="MadeIn"
-									val={data.MadeIn}
+									name="madeIn"
+									val={data.madeIn}
 									handelChange={handleChange}
-									isSearchable={check.check20}
+									isSearchable={check.madeIn}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check20"
-									options={options}
+									checkName="madeIn"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Made In"
 								/>
 								<SelectInput
-									name="ArticleCode"
-									val={data.ArticleCode}
+									name="articleCode"
+									val={data.articleCode}
 									handelChange={handleChange}
-									isSearchable={check.check21}
+									isSearchable={check.articleCode}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check21"
-									options={options}
+									checkName="articleCode"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Article Code"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="Describtion"
-									val={data.Describtion}
+									name="describtion"
+									val={data.describtion}
 									handelChange={handleChange}
-									isSearchable={check.check22}
+									isSearchable={check.describtion}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check22"
-									options={options}
+									checkName="describtion"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Describtion"
 								/>
 								<SelectInput
-									name="Producer"
-									val={data.Producer}
+									name="producer"
+									val={data.producer}
 									handelChange={handleChange}
-									isSearchable={check.check23}
+									isSearchable={check.producer}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check23"
-									options={options}
+									checkName="producer"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Producer"
 								/>
 							</FlexBox>
 							<SelectInput
-								name="SizeChart"
-								val={data.SizeChart}
+								name="sizeChart"
+								val={data.sizeChart}
 								handelChange={handleChange}
-								isSearchable={check.check24}
+								isSearchable={check.sizeChart}
 								handelChangeCheck={handleChangeCheck}
-								checkName="check24"
-								options={options}
+								checkName="sizeChart"
+								options={infoData}
+								handleFixedChange={handleFixedChange}
 								labelName="Size Chart"
 							/>
 						</>
@@ -437,89 +485,98 @@ const Informations = () => {
 						<>
 							<FlexBox>
 								<SelectInput
-									name="Cost"
-									val={data.Cost}
+									name="cost"
+									val={data.cost}
 									handelChange={handleChange}
-									isSearchable={check.check25}
+									isSearchable={check.cost}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check25"
-									options={options}
+									checkName="cost"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Cost"
 								/>
 								<SelectInput
-									name="SaleCost1"
-									val={data.SaleCost1}
+									name="saleCost1"
+									val={data.saleCost1}
 									handelChange={handleChange}
-									isSearchable={check.check26}
+									isSearchable={check.saleCost1}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check26"
-									options={options}
+									checkName="saleCost1"
+									handleFixedChange={handleFixedChange}
+									options={infoData}
 									labelName="Sale Cost 1"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="SaleCost2"
-									val={data.SaleCost2}
+									name="saleCost2"
+									val={data.saleCost2}
 									handelChange={handleChange}
-									isSearchable={check.check27}
+									isSearchable={check.saleCost2}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check27"
-									options={options}
+									checkName="saleCost2"
+									options={infoData}
 									labelName="Sale Cost 2"
+									handleFixedChange={handleFixedChange}
 								/>
 								<SelectInput
-									name="SaleCost3"
-									val={data.SaleCost3}
+									name="saleCost3"
+									val={data.saleCost3}
 									handelChange={handleChange}
-									isSearchable={check.check28}
+									isSearchable={check.saleCost3}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check28"
-									options={options}
+									checkName="saleCost3"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Sale Cost 3"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="StockCost"
-									val={data.StockCost}
+									name="stockCost"
+									val={data.stockCost}
 									handelChange={handleChange}
-									isSearchable={check.check29}
+									isSearchable={check.stockCost}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check29"
-									options={options}
+									checkName="stockCost"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Stock Cost"
 								/>
 								<SelectInput
-									name="HocCost"
-									val={data.HocCost}
+									name="adHocCost"
+									val={data.adHocCost}
 									handelChange={handleChange}
-									isSearchable={check.check30}
+									isSearchable={check.adHocCost}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check30"
-									options={options}
+									checkName="adHocCost"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Hoc Cost"
 								/>
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="RwtPrice"
-									val={data.RwtPrice}
+									name="RWTprice"
+									val={data.RWTprice}
 									handelChange={handleChange}
-									isSearchable={check.check31}
+									isSearchable={check.RWTprice}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check31"
-									options={options}
+									checkName="RWTprice"
+									options={infoData}
 									labelName="RWT Price"
+									handleFixedChange={handleFixedChange}
 								/>
 								<SelectInput
-									name="Pictures"
-									val={data.Pictures}
+									name="pictures"
+									val={data.pictures}
+									notSelect={true}
 									handelChange={handleChange}
-									isSearchable={check.check32}
+									isSearchable={check.pictures}
 									handelChangeCheck={handleChangeCheck}
-									checkName="check32"
-									options={options}
+									checkName="pictures"
+									options={infoData}
+									handleFixedChange={handleFixedChange}
 									labelName="Pictures"
 								/>
 							</FlexBox>
@@ -527,6 +584,40 @@ const Informations = () => {
 					}
 				/>
 			</Accordion>
+			<Flex
+				display={"flex"}
+				alignItems="center"
+				justifyContent={"flex-end"}
+				w="100%"
+				gap="16px"
+			>
+				<Button
+					w="122px"
+					colorScheme={"red"}
+					variant="outline"
+					onClick={() => backHandel()}
+				>
+					Cancel
+				</Button>
+				<Button
+					fontSize={["14px"]}
+					w="122px"
+					rounded="8"
+					bg={`${"var(--main-color)"}`}
+					fontWeight="400"
+					colorScheme={"blue"}
+					letterSpacing="1px"
+					onClick={() => handelSendData()}
+				>
+					Finish
+				</Button>
+			</Flex>
+
+			<PopUp
+				UploadNumber={showPopupMessage}
+				show={showPopup}
+				setShow={setShowPopup}
+			/>
 		</>
 	);
 };
