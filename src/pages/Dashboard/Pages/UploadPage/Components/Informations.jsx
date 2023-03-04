@@ -52,7 +52,7 @@ const Informations = ({ infoData }) => {
 		fabricCode: 99,
 		madeIn: 99,
 		articleCode: 99,
-		describtion: 99,
+		description: 99,
 		producer: 99,
 		sizeChart: 99,
 		// Other Information
@@ -63,10 +63,9 @@ const Informations = ({ infoData }) => {
 		stockCost: 99,
 		adHocCost: 99,
 		RWTprice: 99,
-		pictures: 99,
+		picture: 99,
 	});
 
-	console.log(data);
 	const [check, setCheck] = useState({
 		// Main Information
 		brand: false,
@@ -92,7 +91,7 @@ const Informations = ({ infoData }) => {
 		fabricCode: false,
 		madeIn: false,
 		articleCode: false,
-		describtion: false,
+		description: false,
 		producer: false,
 		sizeChart: false,
 		// Other Information
@@ -103,7 +102,7 @@ const Informations = ({ infoData }) => {
 		stockCost: false,
 		adHocCost: false,
 		RWTprice: false,
-		pictures: false,
+		picture: false,
 	});
 
 	const handleChange = (e) => {
@@ -443,12 +442,12 @@ const Informations = ({ infoData }) => {
 							</FlexBox>
 							<FlexBox>
 								<SelectInput
-									name="describtion"
-									val={data.describtion}
+									name="description"
+									val={data.description}
 									handelChange={handleChange}
-									isSearchable={check.describtion}
+									isSearchable={check.description}
 									handelChangeCheck={handleChangeCheck}
-									checkName="describtion"
+									checkName="description"
 									options={infoData}
 									handleFixedChange={handleFixedChange}
 									labelName="Describtion"
@@ -568,16 +567,16 @@ const Informations = ({ infoData }) => {
 									handleFixedChange={handleFixedChange}
 								/>
 								<SelectInput
-									name="pictures"
-									val={data.pictures}
+									name="picture"
+									val={data.picture}
 									notSelect={true}
 									handelChange={handleChange}
-									isSearchable={check.pictures}
+									isSearchable={check.picture}
 									handelChangeCheck={handleChangeCheck}
-									checkName="pictures"
+									checkName="picture"
 									options={infoData}
 									handleFixedChange={handleFixedChange}
-									labelName="Pictures"
+									labelName="picture"
 								/>
 							</FlexBox>
 						</>

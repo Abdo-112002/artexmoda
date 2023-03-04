@@ -14,7 +14,7 @@ export default function SendWithToken() {
 		baseURL: `${API_URL}/`,
 		headers: {
 			"Content-Type":
-				"multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL",
+				"multipart/form-data; boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL",
 			Authorization: localStorage.getItem("token"),
 		},
 	});

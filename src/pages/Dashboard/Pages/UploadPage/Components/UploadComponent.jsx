@@ -26,7 +26,6 @@ const UploadComponent = () => {
 	const [error, setError] = useState(false);
 	const [acceptTrue, setAcceptTrue] = useState(false);
 	const [acceptImage, setAcceptImage] = useState(false);
-	const [nameIsExist, setNameIsExist] = useState(false);
 	const [fileIsExist, setFileIsExist] = useState(false);
 	const [messageExist, setMessageExist] = useState("");
 
@@ -45,8 +44,8 @@ const UploadComponent = () => {
 	const [dataSend, setDataSend] = useState({
 		uploadSpreadsheetName: "",
 	});
-	const [uploadSpreadsheetFile, setUploadSpreadsheetFile] = useState("");
-	const [uploadSpreadsheetImage, setUploadSpreadsheetImage] = useState("");
+	const [uploadSpreadsheetFile, setUploadSpreadsheetFile] = useState([]);
+	const [uploadSpreadsheetImage, setUploadSpreadsheetImage] = useState([]);
 	const [preorderStartDate, setPreorderStartDate] = useState("");
 	const [preorderEndDate, setPreorderEndDate] = useState("");
 	const [expectedDeliveryDate, setExpectedDeliveryDate] = useState("");
@@ -106,8 +105,7 @@ const UploadComponent = () => {
 		// Check data is Empty or no
 		if (
 			dataSend.uploadSpreadsheetName === "" &&
-			uploadSpreadsheetFile === "" &&
-			uploadSpreadsheetImage === ""
+			uploadSpreadsheetFile.length === 0
 		) {
 			setError(true);
 			setTimeout(() => {
@@ -115,17 +113,17 @@ const UploadComponent = () => {
 			}, 3000);
 		}
 		// Send Form Data using axios
+		const formData = new FormData();
+		formData.append("uploadSpreadsheetName", dataSend.uploadSpreadsheetName);
+		formData.append("uploadSpreadsheetFile", uploadSpreadsheetFile);
+		formData.append("uploadSpreadsheetImage", uploadSpreadsheetImage);
+		formData.append("preorderStartDate", preorderStartDate);
+		formData.append("preorderEndDate", preorderEndDate);
+		formData.append("expectedDeliveryDate", expectedDeliveryDate);
+
 		http2
-			.post(`${API_URL_UPLOAD_PRODUCTS}`, {
-				uploadSpreadsheetName: dataSend.uploadSpreadsheetName,
-				uploadSpreadsheetFile: uploadSpreadsheetFile,
-				uploadSpreadsheetImage: uploadSpreadsheetImage,
-				preorderStartDate: preorderStartDate,
-				preorderEndDate: preorderEndDate,
-				expectedDeliveryDate: expectedDeliveryDate,
-			})
+			.post(`${API_URL_UPLOAD_PRODUCTS}`, formData)
 			.then((res) => {
-				console.log(res);
 				setLoading(false);
 				if (res.data.status === 200) {
 					localStorage.setItem("fileId", res.data.spreadsheetId);
@@ -133,7 +131,6 @@ const UploadComponent = () => {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				setLoading(false);
 				if (err.response.data.uploadFormErrors.catalougueNameError) {
 					setSelectFile("");
@@ -219,7 +216,7 @@ const UploadComponent = () => {
 					<DefaultInput
 						placeholder="Catalougue name"
 						type="text"
-						error={error || nameIsExist}
+						error={error || fileIsExist}
 						leftIcons={
 							<svg
 								width="16"
@@ -427,15 +424,6 @@ const UploadComponent = () => {
 				<Error
 					active={fileIsExist}
 					setActive={setFileIsExist}
-					whiteColoe={whiteColoe}
-					text={"Oh!"}
-					message={messageExist}
-				/>
-			)}
-			{nameIsExist && (
-				<Error
-					active={nameIsExist}
-					setActive={setNameIsExist}
 					whiteColoe={whiteColoe}
 					text={"Oh!"}
 					message={messageExist}
