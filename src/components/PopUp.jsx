@@ -2,11 +2,11 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PopUp = ({ UploadNumber, show, setShow }) => {
+const PopUp = ({ UploadNumber, show, setShow, navigationPath }) => {
 	const navigate = useNavigate();
 
 	const handelNavigate = () => {
-		navigate("/dashboard/upload-image");
+		navigate(`/dashboard/${navigationPath}`);
 	};
 
 	// onClick out modal close

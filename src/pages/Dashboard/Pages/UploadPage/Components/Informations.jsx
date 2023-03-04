@@ -1,12 +1,12 @@
-import React, { useState } from "react";
 import { Accordion, Button, Flex } from "@chakra-ui/react";
-import { Accordions, PopUp, SelectInput } from "../../../../../components";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SendWithToken from "./../../../../../common/SendWithToken";
+import { Accordions, PopUp, SelectInput } from "../../../../../components";
 import {
 	API_URL_GET_FIXED,
 	API_URL_UPLOAD_PRODUCTS2,
 } from "./../../../../../common/Apis";
+import SendWithToken from "./../../../../../common/SendWithToken";
 
 export const FlexBox = ({ children }) => {
 	return (
@@ -613,9 +613,10 @@ const Informations = ({ infoData }) => {
 			</Flex>
 
 			<PopUp
-				UploadNumber={showPopupMessage}
+				UploadNumber={250}
 				show={showPopup}
 				setShow={setShowPopup}
+				navigationPath={"upload-image"}
 			/>
 		</>
 	);

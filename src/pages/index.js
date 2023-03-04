@@ -1,20 +1,20 @@
 // Auth
-import Login from "./Auth/Pages/Login";
-import Signup from "./Auth/Pages/Signup";
 import Forget from "./Auth/Pages/Forget";
+import Login from "./Auth/Pages/Login";
 import Reset from "./Auth/Pages/Reset";
+import Signup from "./Auth/Pages/Signup";
 
 // Dashboard
-import Dashboard from "./Dashboard/Pages/DashboardHome/Dashboard";
 import AdminPreorder from "./Dashboard/Pages/AdminPreorder/AdminPreorder";
 import Catalogues from "./Dashboard/Pages/Catalogues/Catalogues";
 import Clients from "./Dashboard/Pages/Clients/Clients";
+import Dashboard from "./Dashboard/Pages/DashboardHome/Dashboard";
 import Preorders from "./Dashboard/Pages/Preorders/Preorders";
 import PriceList from "./Dashboard/Pages/PriceList/PriceList";
 import Products from "./Dashboard/Pages/Products/Products";
+import UploadImage from "./Dashboard/Pages/UploadImage/UploadImage";
 import Upload from "./Dashboard/Pages/UploadPage/Upload";
 import ViewMore from "./Dashboard/Pages/UploadPage/ViewMore";
-import UploadImage from "./Dashboard/Pages/UploadImage/UploadImage";
 import Users from "./Dashboard/Pages/Users/Users";
 import Variations from "./Dashboard/Pages/Variations/Variations";
 
@@ -22,8 +22,10 @@ import Variations from "./Dashboard/Pages/Variations/Variations";
 import Navigation from "./Dashboard/Components/Navigation";
 import Sidebar from "./Dashboard/Components/Sidebar";
 
+import ImagesViewProducts from "./Dashboard/Pages/UploadImage/components/ImagesViewProducts";
+import UploadImagesComponent from "./Dashboard/Pages/UploadImage/components/UploadImagesComponent";
+
 export {
-	// Auth Pages
 	Login,
 	Signup,
 	Forget,
@@ -46,4 +48,8 @@ export {
 	// Dashboard Components
 	Navigation,
 	Sidebar,
+
+	// Dashboard UploadImage component
+	UploadImagesComponent,
+	ImagesViewProducts,
 };

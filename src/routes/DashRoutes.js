@@ -1,17 +1,19 @@
 // All imports
 import { DashLayout, NotFound } from "../containers";
 import {
+	AdminPreorder,
+	Catalogues,
 	Clients,
 	Dashboard,
-	Users,
+	ImagesViewProducts,
+	Preorders,
+	PriceList,
+	Products,
 	Upload,
 	UploadImage,
-	Catalogues,
-	Products,
-	PriceList,
+	UploadImagesComponent,
+	Users,
 	Variations,
-	Preorders,
-	AdminPreorder,
 	ViewMore,
 } from "./../pages";
 
@@ -43,6 +45,16 @@ export const DashRoutes = {
 		{
 			path: "upload-image",
 			element: <UploadImage />,
+			children: [
+				{
+					index: true,
+					element: <UploadImagesComponent />,
+				},
+				{
+					path: "view-products",
+					element: <ImagesViewProducts />,
+				},
+			],
 		},
 		{
 			path: "catalogues",
