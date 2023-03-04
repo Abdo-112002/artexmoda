@@ -107,42 +107,47 @@ const UploadComponent = () => {
 			dataSend.uploadSpreadsheetName === "" &&
 			uploadSpreadsheetFile.length === 0
 		) {
+			setLoading(false);
 			setError(true);
 			setTimeout(() => {
 				setError(false);
 			}, 3000);
-		}
-		// Send Form Data using axios
-		const formData = new FormData();
-		formData.append("uploadSpreadsheetName", dataSend.uploadSpreadsheetName);
-		formData.append("uploadSpreadsheetFile", uploadSpreadsheetFile);
-		formData.append("uploadSpreadsheetImage", uploadSpreadsheetImage);
-		formData.append("preorderStartDate", preorderStartDate);
-		formData.append("preorderEndDate", preorderEndDate);
-		formData.append("expectedDeliveryDate", expectedDeliveryDate);
+		} else {
+			// Send Form Data using axios
+			const formData = new FormData();
+			formData.append("uploadSpreadsheetName", dataSend.uploadSpreadsheetName);
+			formData.append("uploadSpreadsheetFile", uploadSpreadsheetFile);
+			formData.append("uploadSpreadsheetImage", uploadSpreadsheetImage);
+			formData.append("preorderStartDate", preorderStartDate);
+			formData.append("preorderEndDate", preorderEndDate);
+			formData.append("expectedDeliveryDate", expectedDeliveryDate);
 
-		http2
-			.post(`${API_URL_UPLOAD_PRODUCTS}`, formData)
-			.then((res) => {
-				setLoading(false);
-				if (res.data.status === 200) {
-					localStorage.setItem("fileId", res.data.spreadsheetId);
-					navigate("view");
-				}
-			})
-			.catch((err) => {
-				setLoading(false);
-				if (err.response.data.uploadFormErrors.catalougueNameError) {
-					setSelectFile("");
-					setFileIsExist(true);
-					setMessageExist(
-						err.response.data.uploadFormErrors.catalougueNameError
-					);
-					setTimeout(() => {
-						setFileIsExist(false);
-					}, 3000);
-				}
-			});
+			http2
+				.post(`${API_URL_UPLOAD_PRODUCTS}`, formData)
+				.then((res) => {
+					setLoading(false);
+					if (res.data.status === 200) {
+						localStorage.setItem("fileId", res.data.spreadsheetId);
+						navigate("view");
+					}
+				})
+				.catch((err) => {
+					setLoading(false);
+					if (err.response.data.uploadFormErrors.catalougueNameError) {
+						setSelectFile("");
+						setDataSend({
+							uploadSpreadsheetName: "",
+						});
+						setFileIsExist(true);
+						setMessageExist(
+							err.response.data.uploadFormErrors.catalougueNameError
+						);
+						setTimeout(() => {
+							setFileIsExist(false);
+						}, 3000);
+					}
+				});
+		}
 	};
 
 	return (
@@ -227,14 +232,14 @@ const UploadComponent = () => {
 							>
 								<path
 									d="M5.33325 8.13325H9.99992M5.33325 10.7999H8.25325M6.66659 3.99992H9.33325C10.6666 3.99992 10.6666 3.33325 10.6666 2.66659C10.6666 1.33325 9.99992 1.33325 9.33325 1.33325H6.66659C5.99992 1.33325 5.33325 1.33325 5.33325 2.66659C5.33325 3.99992 5.99992 3.99992 6.66659 3.99992Z"
-									stroke={error ? "#FF0000" : "#626262"}
+									stroke={error || fileIsExist ? "#FF0000" : "#626262"}
 									strokeMiterlimit="10"
 									strokeLinecap="round"
 									strokeLinejoin="round"
 								/>
 								<path
 									d="M10.6667 2.67993C12.8867 2.79993 14 3.61993 14 6.6666V10.6666C14 13.3333 13.3333 14.6666 10 14.6666H6C2.66667 14.6666 2 13.3333 2 10.6666V6.6666C2 3.6266 3.11333 2.79993 5.33333 2.67993"
-									stroke={error ? "#FF0000" : "#626262"}
+									stroke={error || fileIsExist ? "#FF0000" : "#626262"}
 									strokeMiterlimit="10"
 									strokeLinecap="round"
 									strokeLinejoin="round"
