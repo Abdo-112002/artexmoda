@@ -1,14 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import toggle from "./ArtexSlices/Toggle";
 import theme from "./ArtexSlices/ThemeSlice";
+import toggle from "./ArtexSlices/Toggle";
+import uploadImages from "./ArtexSlices/UploadImagesSlice";
 
 import { RtqApi } from "./ArtexSlices/RTQApis";
 export default configureStore({
 	reducer: {
 		toggle,
 		theme,
-
+		uploadImages,
 		// Add the generated reducer as a specific top-level slice
 		[RtqApi.reducerPath]: RtqApi.reducer,
 	},

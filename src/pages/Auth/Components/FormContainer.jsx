@@ -24,7 +24,8 @@ const FormContainer = ({
 		<>
 			<Flex
 				alignItems={"center"}
-				justifyContent="center"
+				justifyContent="flex-start"
+				mt="60px"
 				flexDirection={"column"}
 				minHeight={`${"calc(100vh - 64px)"}`}
 				w="100%"

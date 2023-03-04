@@ -1,11 +1,11 @@
+import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { Soon } from "../../../../components";
-
+import { Outlet } from "react-router-dom";
 const UploadImage = () => {
 	return (
-		<>
-			<Soon />
-		</>
+		<Flex justify={"center"} pt="48px" w={"100%"}>
+			<Outlet />
+		</Flex>
 	);
 };
 
